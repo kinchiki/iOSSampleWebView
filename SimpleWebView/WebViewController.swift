@@ -7,20 +7,33 @@
 //
 
 import UIKit
+import WebKit
 
-class WebViewController: UIViewController {
+class WebViewController: UIViewController, WKUIDelegate {
+
+    var webView: WKWebView!
+
+    override func loadView() {
+        super.loadView()
+        let webConfiguration = WKWebViewConfiguration()
+        webView = WKWebView(frame: .zero, configuration: webConfiguration)
+        webView.uiDelegate = self
+        view = webView
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        let myURL = URL(string: "https://www.google.co.jp")
+        let myRequest = URLRequest(url: myURL!)
+        webView.load(myRequest)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
     /*
     // MARK: - Navigation
@@ -31,5 +44,4 @@ class WebViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
 }
